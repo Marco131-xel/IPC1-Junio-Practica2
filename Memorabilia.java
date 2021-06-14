@@ -18,8 +18,11 @@ public class Memorabilia {
     int[] anioingrepeli = new int[5];
     String[] categoriaingrepeli = new String[5];
 
-
-
+    // ARREGLOS DE PRESTAR PELICULAS 
+    int [] diasPrestamo = new int [25];
+    boolean [] estadocliente = new boolean[25];
+    boolean [] disponible = new boolean[25];
+    int contadorPrestacion = 0;
     
     public static void main ( String[] args){
     Memorabilia practica2 = new Memorabilia();
@@ -34,7 +37,7 @@ public class Memorabilia {
             int opcion;
         do {
             
-             System.out.println("\t\t******* BIENVENIDO AL MEMORABILIA ********");
+             System.out.println("\t\t******* BIENVENIDO A MEMORABILIA ********");
              System.out.println ("Ingrese una Opcion");
              System.out.println ("1). Prestamos de Peliculas");
              System.out.println ("2). Devolucion de Peliculas");
@@ -44,13 +47,15 @@ public class Memorabilia {
              System.out.println ("6). Mostrar Clientes");
              System.out.println ("7). Reportes");
              System.out.println ("8). Salir");
+
+             System.out.println("\nIngrese la opcion que desee: ");
              opcion = entrada.nextInt();
              
                 switch ( opcion){
 
                     //Prestamos de peliculas
                     case 1 :
-                      
+                        prestaPeliculas(idPeliculas, idClientes, disponible, estadocliente);
                         
                         break;
                     
@@ -84,6 +89,11 @@ public class Memorabilia {
                     
                     // Reportes  
                     case 7 :
+                        mostrarCategoriaAccion ();
+                        mostrarCategoriaComedia ();
+                        mostrarCategoriaRomantica ();
+                        mostrarCategoriaMiedo ();
+                        mostrarCategoriaInfantil ();
                         break;
                         
                     case 8 :
@@ -96,6 +106,34 @@ public class Memorabilia {
           }while( opcion !=8 );
    
    }
+
+
+   // PRESTAMOS DE PELICULAS
+       public void prestaPeliculas(int [] id, int [] idCliente, boolean [] disponible, boolean[] estadoCliente){
+              int pelicula, cliente;
+              System.out.println("");
+              System.out.println("***PRESTAR PELICULAS***");
+              System.out.print("Ingrese id pelicula: ");
+              pelicula = entrada.nextInt();
+              System.out.print("Ingrese id Cliente: ");
+              cliente = entrada.nextInt();
+              System.out.print("Por cuantos días se alquilará: ");
+              diasPrestamo[contadorPrestacion] = entrada.nextInt();
+              for(int i = 0; i < id.length; i++){
+                     for(int j = 0; j < idCliente.length; j++){
+                         if(id[i] == pelicula & idCliente[j] == cliente){
+                            System.out.println("Pelicula existente");
+                            System.out.println("Cliente existente");
+                            System.out.println("Alquiler exitoso");
+                            disponible[i] = false;
+                            estadoCliente[j] = false;
+                            contadorPrestacion++;
+                         } 
+                     }
+              }
+              System.out.println("El estado de la pelicula con id: " + pelicula + " se ha cambiado, al igual que el cliente con id: " + cliente);
+              System.out.println("");
+    }
     
     // Todas las peliculas agregadas 
     public void mostrarAccion ( ){
@@ -223,7 +261,7 @@ public class Memorabilia {
         int opcioncategoria;
         
         do{
-            System.out.println("\n*****Menu de las categorias de las peliculas*****");
+            System.out.println("\n\n*****Menu de las categorias de las peliculas*****");
             System.out.println("1). Accion.");
             System.out.println("2). Comedia.");
             System.out.println("3). Romantica.");
@@ -276,7 +314,7 @@ public class Memorabilia {
         for (int i = 0; i < 5; i++) {
             mostrarAccion ();
             
-            System.out.println (" "+ idPeliculas [i] +" ---- "+peliculas [i]+" ---- "+anioPeliculas [i]);
+            System.out.println (" "+ idPeliculas [i] +" || "+peliculas [i]+" // "+anioPeliculas [i]);
         }
     }
 
@@ -285,7 +323,7 @@ public class Memorabilia {
         for (int i = 0; i < 5; i++) {
             mostrarComedia();
             
-            System.out.println (" "+ idPeliculas [i] +" ---- "+peliculas [i]+" ---- "+anioPeliculas [i]);
+            System.out.println (" "+ idPeliculas [i] +" || "+peliculas [i]+" // "+anioPeliculas [i]);
         }
     }
 
@@ -294,7 +332,7 @@ public class Memorabilia {
         for (int i = 0; i < 5; i++) {
             mostrarRomanticas ();
             
-            System.out.println (" "+ idPeliculas [i] +" ---- "+peliculas [i]+" ---- "+anioPeliculas [i]);
+            System.out.println (" "+ idPeliculas [i] +" || "+peliculas [i]+" // "+anioPeliculas [i]);
         }
     }
 
@@ -303,7 +341,7 @@ public class Memorabilia {
         for (int i = 0; i < 5; i++) {
             mostrarMiedo ();
             
-            System.out.println (" "+ idPeliculas [i] +" ---- "+peliculas [i]+" ---- "+anioPeliculas [i]);
+            System.out.println (" "+ idPeliculas [i] +" || "+peliculas [i]+" // "+anioPeliculas [i]);
         }
     }
 
@@ -312,7 +350,7 @@ public class Memorabilia {
         for (int i = 0; i < 5; i++) {
             mostrarInfantil ();
             
-            System.out.println (" "+ idPeliculas [i] +" ---- "+peliculas [i]+" ---- "+anioPeliculas [i]);
+            System.out.println (" "+ idPeliculas [i] +" || "+peliculas [i]+" // "+anioPeliculas [i]);
         }
         
         
@@ -323,7 +361,7 @@ public class Memorabilia {
         int opcioncategoria1;
         
         do{
-            System.out.println("\n*****Menu para ingresar peliculas*****");
+            System.out.println("\n\n*****Menu para ingresar peliculas*****");
             System.out.println("1). Accion.");
             System.out.println("2). Comedia.");
             System.out.println("3). Romantica.");
@@ -381,6 +419,8 @@ public class Memorabilia {
     
     // Ingresar clientes 
     public void ingresarClientes(){
+        System.out.println("");
+        System.out.println("\n**------INGRESAR CLIENTES------**");
         int op = 2;
         int idAuxiliar;
         
@@ -421,9 +461,12 @@ public class Memorabilia {
 
     //MOSTRAR CLIENTES 
     public void mostrarClientes(int[] id, String[] nombres, int[] telefono){
+        System.out.println("");
+        System.out.println("\n**------CLIENTES MEMORABILIA------**");
+
         for( int i =0; i< 25;i++){
              if (nombreClientes[i] != null) {
-                 System.out.println("Id: "+id[i]+" ---Nombre: "+nombres[i]+" ---Telefono: "+telefono[i]+"\n");
+                 System.out.println("Id: "+id[i]+"|| Nombre: "+nombres[i]+" **Telefono: "+telefono[i]+" ||Estado: true "+"\n");
             }
            
         }
@@ -451,6 +494,7 @@ public class Memorabilia {
     */
 
     public void ingresarAccion(){
+        System.out.println("***CATEGORIA ACCION***");
         int op = 2;
         int idAuxiliar;
         
@@ -495,13 +539,14 @@ public class Memorabilia {
         System.out.println("Peliculas Ingresadas");
         for( int i =0; i< 5;i++){
              if (nombreingrepeli[i] != null) {
-                 System.out.println("Id: "+id[i]+" ---Nombre: "+nombres[i]+" ---anio: "+anio[i]+"\n");
+                 System.out.println("Id: "+id[i]+"||Nombre: "+nombres[i]+" //anio: "+anio[i]+"\n");
             }
            
         }
     }
 
     public void ingresarComedia(){
+        System.out.println("***CATEGORIA COMEDIA***");
         int op = 2;
         int idAuxiliar;
         
@@ -546,13 +591,14 @@ public class Memorabilia {
         System.out.println("Peliculas Ingresadas");
         for( int i =0; i< 5;i++){
              if (nombreingrepeli[i] != null) {
-                 System.out.println("Id: "+id[i]+" ---Nombre: "+nombres[i]+" ---anio: "+anio[i]+"\n");
+                 System.out.println("Id: "+id[i]+" ||Nombre: "+nombres[i]+" //anio: "+anio[i]+"\n");
             }
            
         }
     }
 
     public void ingresarRomantica(){
+        System.out.println("***CATEGORIA ROMANTICA***");
         int op = 2;
         int idAuxiliar;
         
@@ -597,13 +643,14 @@ public class Memorabilia {
         System.out.println("Peliculas Ingresadas");
         for( int i =0; i< 5;i++){
              if (nombreingrepeli[i] != null) {
-                 System.out.println("Id: "+id[i]+" ---Nombre: "+nombres[i]+" ---anio: "+anio[i]+"\n");
+                 System.out.println("Id: "+id[i]+" ||Nombre: "+nombres[i]+" //anio: "+anio[i]+"\n");
             }
            
         }
     }
 
     public void ingresarMiedo(){
+        System.out.println("***CATEGORIA MIEDO***");
         int op = 2;
         int idAuxiliar;
         
@@ -648,13 +695,14 @@ public class Memorabilia {
         System.out.println("Peliculas Ingresadas");
         for( int i =0; i< 5;i++){
              if (nombreingrepeli[i] != null) {
-                 System.out.println("Id: "+id[i]+" ---Nombre: "+nombres[i]+" ---anio: "+anio[i]+"\n");
+                 System.out.println("Id: "+id[i]+" ||Nombre: "+nombres[i]+" //anio: "+anio[i]+"\n");
             }
            
         }
     }
 
     public void ingresarInfantil(){
+        System.out.println("***CATEGORIA INFANTIL***");
         int op = 2;
         int idAuxiliar;
         
@@ -699,7 +747,7 @@ public class Memorabilia {
         System.out.println("Peliculas Ingresadas");
         for( int i =0; i< 5;i++){
              if (nombreingrepeli[i] != null) {
-                 System.out.println("Id: "+id[i]+" ---Nombre: "+nombres[i]+" ---anio: "+anio[i]+"\n");
+                 System.out.println("Id: "+id[i]+" ||Nombre: "+nombres[i]+" //anio: "+anio[i]+"\n");
             }
            
         }
